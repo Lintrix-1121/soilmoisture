@@ -21,5 +21,7 @@ db.sequelize_config = sequelize_config;
 
 db.users = require("./user.model.js")(sequelize_config, Sequelize);
 db.embedded = require("./embedded.model.js")(sequelize_config,Sequelize);
+db.thresholds = require("./thresholds.model.js")(sequelize_config, Sequelize);
+db.relayControl = require("./relay.model.js")(sequelize_config, Sequelize);
 
 module.exports =db;
