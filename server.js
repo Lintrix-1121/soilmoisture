@@ -18,6 +18,8 @@ db.sequelize_config.sync(
 
 require("./routes/users.route.js")(app);
 require("./routes/embedded.route.js")(app);
+require("./routes/thresholds.route.js")(app);
+require("./routes/relay.route.js")(app);
 
 app.listen(7000,'0.0.0.0', () => {
     console.log("Fuel server on set");
