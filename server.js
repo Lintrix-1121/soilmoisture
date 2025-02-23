@@ -19,6 +19,6 @@ db.sequelize_config.sync(
 require("./routes/users.route.js")(app);
 require("./routes/embedded.route.js")(app);
 
-app.listen(7000, () => {
+app.listen(7000,'0.0.0.0', () => {
     console.log("Fuel server on set");
 });
