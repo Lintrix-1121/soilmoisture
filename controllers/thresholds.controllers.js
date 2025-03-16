@@ -4,59 +4,44 @@ const Thresholds = db.thresholds;
 //fetching the threshold values
 exports.GetThresholds = async (req, res) => {
   try {
-    const thresholds = await Thresholds.findByPk(1); // Pass only the primary key value
+    const thresholds = await Thresholds.findOne({ where: { id: 1 } });
 
     if (thresholds) {
-      res.send({
+      res.status(200).json({
         status: "success",
         status_code: 200,
         message: "Thresholds retrieved successfully",
-        result: thresholds, // No need to access an array
+        result: {
+          temperature: thresholds.temperature,
+          humidity: thresholds.humidity,
+          distance: thresholds.distance,
+          soilMoisture: {
+            min: thresholds.soilMoisture.min,
+            max: thresholds.soilMoisture.max
+          },
+          time: thresholds.time,
+        },
       });
     } else {
-      res.send({
+      res.status(404).json({
         status: "error",
         status_code: 404,
         message: "Thresholds not found",
       });
     }
   } catch (err) {
-    res.send({
+    console.error("Error fetching thresholds:", err);
+    res.status(500).json({
       status: "error",
       status_code: 500,
-      message: err.message || "Failed to retrieve thresholds",
+      message: "Failed to retrieve thresholds",
+      error: err.message,
     });
   }
 };
 
 
-// exports.GetThresholds = async (req, res) => {
-//   try {
-//     const thresholds = await Thresholds.findByPk({
-//       where: {id : 1}
-//     });
-//     if (thresholds[0].length > 0) {
-//       res.send({
-//         status: "success",
-//         status_code: 200,
-//         message: "Thresholds retrieved successfully",
-//         result: thresholds[0][0], // Get the first record
-//       });
-//     } else {
-//       res.send({
-//         status: "error",
-//         status_code: 404,
-//         message: "Thresholds not found",
-//       });
-//     }
-//   } catch (err) {
-//     res.send({
-//       status: "error",
-//       status_code: 500,
-//       message: err.message || "Failed to retrieve thresholds",
-//     });
-//   }
-// };
+
 
 //updating threshold values
 exports.UpdateThresholds = (req, res) => {

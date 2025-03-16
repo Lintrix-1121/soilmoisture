@@ -6,6 +6,7 @@ module.exports = app => {
     var router = require("express").Router();
 
     router.post('/signup', users_controller.Signup);
+    router.post('/logout', users_controller.Logout);
     router.post('/login', users_controller.Login);
     router.get('/users', users_controller.GetUsers);
     router.delete('/deluser/:id', users_controller.DeleteUser);
